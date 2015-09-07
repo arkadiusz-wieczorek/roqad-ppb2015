@@ -4,6 +4,8 @@ import Orange
 import shutil
 import fileinput
 
+print "start program"
+
 shutil.copyfile("sample_data.tab", "__sample_data.tab")
 
 # read frist line
@@ -26,15 +28,13 @@ data2 = Orange.data.Table("__sample_data.tab")
 new_table = Orange.data.Table([data, data2])
 new_cleaned_table = Orange.data.Table(new_table.domain)
 
-
-predict_list_domain = ["predict"]
-predict_list = []
+# predict_domain = ["predict"]
+predict_domain = Orange.data.Domain([Orange.feature.Discrete("predict")], False)
+print predict_domain.domain
+predict_column = []
 
 table = data.select(['user_id'])
 table2 = data2.select(['__user_id'])
-
-#index = 0
-#index_2 = 0
 
 non_orange_table = []
 
@@ -42,21 +42,20 @@ for index, inst in enumerate(table):
     selected_user_id = inst[0].native()
     for index_2, inst2 in enumerate(table2):
     	if selected_user_id == inst2[0].native():
-    		predict_list.append('TAK')
+    		predict_column.append('TAK')
     	else:
-    		predict_list.append('NIE')
+    		predict_column.append('NIE')
     	row = data[index].native(0) + data2[index_2].native(0)
     	non_orange_table.append(row)
     	pass
 
-# print "end"
-# result = non_orange_table + predict_list
+print "table_without_predictions"
+table_without_predictions = Orange.data.Table(new_cleaned_table.domain, non_orange_table)
 
+print "table_of_predictions"
+table_of_predictions = Orange.data.Table(predict_domain, predict_column)
 
-# result_table = Orange.data.Table(new_cleaned_table.domain, non_orange_table)
+print "result_table"
+result_table = Orange.data.Table([table_without_predictions, table_of_predictions])
 
-print non_orange_table[3]
-# print result_table.domain
-# print result_table[0].native()
-# print "dupa"
-# # print result_table[2].native()
+print result_table[2].native()
