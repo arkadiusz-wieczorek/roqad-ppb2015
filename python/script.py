@@ -30,7 +30,7 @@ new_cleaned_table = Orange.data.Table(new_table.domain)
 
 # predict_domain = ["predict"]
 predict_domain = Orange.data.Domain([Orange.feature.Discrete("predict")], False)
-print predict_domain.domain
+# print predict_domain.domain
 predict_column = []
 
 table = data.select(['user_id'])
@@ -49,13 +49,15 @@ for index, inst in enumerate(table):
     	non_orange_table.append(row)
     	pass
 
-print "table_without_predictions"
-table_without_predictions = Orange.data.Table(new_cleaned_table.domain, non_orange_table)
+# print non_orange_table
 
-print "table_of_predictions"
-table_of_predictions = Orange.data.Table(predict_domain, predict_column)
+# print "table_without_predictions"
+# table_without_predictions = Orange.data.Table(new_cleaned_table.domain, non_orange_table)
 
-print "result_table"
-result_table = Orange.data.Table([table_without_predictions, table_of_predictions])
+# print "table_of_predictions"
+# table_of_predictions = Orange.data.Table(predict_domain, predict_column)
 
-print result_table[2].native()
+# print "result_table"
+# result_table = Orange.data.Table([table_without_predictions, table_of_predictions])
+
+# print result_table[2].native()
