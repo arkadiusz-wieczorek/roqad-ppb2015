@@ -16,5 +16,3 @@ def getSample(dataset_file, percent_sample):
 		samples += sample
 	pass
 	return samples
-
-print getSample('../roq-ad-data-set/learning-set/requests.csv', 0.15)
