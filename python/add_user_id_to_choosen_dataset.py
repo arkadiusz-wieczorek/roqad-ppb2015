@@ -20,4 +20,5 @@ def addUserID(dataset_file, dataset_file_with_userID):
 
 	return dataset_with_added_user_id
 
-addUserID('../roq-ad-data-set/learning-set/devices.csv', '../roq-ad-data-set/learning-set/labels.csv')
+# example execute
+# addUserID('../roq-ad-data-set/learning-set/devices.csv', '../roq-ad-data-set/learning-set/labels.csv')
