@@ -19,9 +19,9 @@ def cartesianProduct(sample):
 		selected_user_id = i[0:i.find(',')]
 		for j in sample:
 			if selected_user_id == j[0:j.find(',')]:
-				predict = 'TAK'
+				predict = '1'
 			else:
-				predict = 'NIE'
+				predict = '0'
 			row = i.replace("\n", "") + "," + j.replace("\n", "") + "," + predict
 			cartesian_product.append(row)
 	return cartesian_product
