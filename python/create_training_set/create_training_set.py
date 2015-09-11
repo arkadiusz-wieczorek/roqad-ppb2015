@@ -21,10 +21,13 @@ class Mapper:
 
 class Training_set_creator:
 
-    def maptovalue(self,collection, key):
-        self.values_maps[key].add('',0)
+    def maptovalue(self,collection):
+        for key in collection[1]:
+            self.values_maps[key].add('',0)
         for record in collection:
-            record[key] = self.values_maps[key].index_of(record[key])
+            for key in record:
+                if not self.isFloat(record[key]):
+                    record[key] = self.values_maps[key].index_of(record[key])
         return collection
 
     def mapkeys(self,collection):
@@ -36,15 +39,19 @@ class Training_set_creator:
             returnlist.append(returnrecord)
         return returnlist
 
-    def create_training_set(self, names, data):
-        for attr in names:
-            if attr != 'timestamp':
-                self.maptovalue(data, attr)
-
+    def create_training_set(self, data):
+        data = self.maptovalue(data)
         return self.mapkeys(data)
 
-    def __init__(self,names,data):
+    def isFloat(self,string):
+        try:
+            float(string)
+            return True
+        except ValueError:
+            return False
+
+    def __init__(self,data):
         self.keys_map = Mapper()
         self.values_maps = collections.defaultdict(Mapper)
         self.data = data
-        self.training_data = self.create_training_set(names,data)
+        self.training_data = self.create_training_set(data)

@@ -17,12 +17,16 @@ sample = add_user_id.addUserID(sample, '../../roq-ad-data-set/learning-set/label
 
 cartesian_product.cartesianProduct(sample)
 
+
 # reader = reader.Reader()
 # data = reader.readFromTable(sample)
 
 
-# training_set_creator = create_training_set.Training_set_creator(data['names'], data['data'])
-# print training_set_creator.training_data
+
+training_set_creator = create_training_set.Training_set_creator(data)
+print training_set_creator.training_data
+print 'end'
+
 #print training_set_creator.data
 #print training_set_creator.values_maps['device_id'].value_to_number
 #print training_set_creator.values_maps['device_id'].number_to_value
