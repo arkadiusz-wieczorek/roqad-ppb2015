@@ -1,0 +1,74 @@
+\documentclass[a4paper,11pt]{article}
+%\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{color}
+\usepackage{amsfonts}
+\usepackage{amsthm, amsmath}
+\usepackage{amssymb}
+
+\date{ }
+\usepackage[
+pdftitle={Letter},
+colorlinks=true,linkcolor=black,urlcolor=black,citecolor=black]{hyperref}
+\urlstyle{same}
+
+\usepackage{geometry}
+\geometry{total={210mm,297mm},
+left=25mm,right=25mm,%
+bindingoffset=0mm, top=25mm,bottom=25mm}
+
+\linespread{1.3}
+\pagestyle{empty}
+
+
+\begin{document}
+
+\title{\textbf{Atrybuty}}
+
+\maketitle
+
+Dla każdych dwóch urządzeń porównujemy ich atrybuty i otrzymujemy ciąg podobieństwa, o wartościach z przedziału $[0,1]$. 
+Oznaczmy przez $D_1,D_2$ porównywane urządzenia.
+
+\section{{\color{red} Czas korzystania}}
+	Reprezentujemy przez ciąg 24 - elementowy. Jeżeli w całym badanym okresie, w danej godzinie pojawiła się aktywność, to stawiamy 1, w p.p 0. Miarę ustalimy na podstawie analizy przykładów użytkowników z kilkoma urządzeniami i zależności występujących pomiedzy nimi. Czy podobieństwo czasu jest informacją pozytywną czy negatywną? W obu przypadkach można zastosować miarę  $\frac{min\{c_1,c_2\}}{max\{c_1,c_2\}}$. (Chwilowo ignorujemy błędy wynikające z różnic stref czasowych do czasu uzyskania odpowiednich informacji.)
+	
+\section{Dominujący kraj}
+	Dla każdego urządzenia tworzymy ciąg $(k_1,k_2,c)$, gdzie $k_1,\ k_2-$ to pierwszy i drugi najczęściej występujący kraj (przy czym kraj drugi wybieramy tylko, gdy występuje w co najmniej 30\% zapytań, w przeciwnym przypadku $k_2=0$), $c$ - liczba wszystkich krajów. Za tę samą wartość na miejscach 1 i 2 przyznajemy odpowiednio wartości 0.5, 0.2. Liczbę krajów porównujemy następująco: $0.3\cdot\frac{min\{c_1,c_2\}}{max\{c_1,c_2\}}$, gdzie $c_1$ liczba krajów dla $D_1$, $c_2$ - dla $D_2$. 
+
+\section{Dominujący region}
+	Jak dla kraju.
+
+\section{Dominujące IP}
+	Dla każdej godziny porównujemy dominujące IP. Liczbę takich samych wyników dzielimy przez liczbę godzin, w których oba urządzenia były aktywne.
+
+\section{Dominujący ISP}
+	Jak przy IP.
+
+\section{{\color{red}Typ użytkownika określony względem URL}}
+	Z pliku requests usuwamy wszystkie informacje poza dev i url; grupujemy je po takim samym dev i klastrujemy devices za pomocą programu R, na podstawie podobieństwa zbiorów url przypisanych do jednego device (typ użytkownika). Informacje o przyporządkowaniu do danego klastra porównujemy dla dwóch urządzeń zero-jedynkowo.
+
+\section{Liczba odwiedzonych stron w ciągu godziny} \label{ls}
+	Dla urządzenia tworzymy parę $(Max,med)$, gdzie $Max$ - to maksimum, a $med$ - mediana liczby stron otwartych w ciągu godziny. Dla $D_1$ i $D_2$ mamy odpowiednio pary $(Max_1,med_1)$, $(Max_2, med_2)$. Niech $M=max\{Max_1,Max_2\}$, $m=min\{Max_1,Max_2\}$. Miara:
+	\[ \frac{1}{(1+M - m)^2} \ .\]
+	Podobnie porównujemy medianę.
+
+\section{Liczba stron startowych}
+
+Atrybut określony na podstawie pierwszego połączenia w ciągu dnia. Porównujemy podobnie jak w punkcie \ref{ls}, z tym że ustalamy dodatkowy parametr $days$ - liczba dni aktywności urządzenia. Jeżeli $days < 10$, to pomijamy porównywanie.
+
+
+\section{{\color{red} Typ połączenia (connection type)}}
+	Mamy 5 typów połączeń:
+	\begin{enumerate}		
+	\item The database identifies dial-up (modem telefoniczny)
+	\item cellular (komórkowy) 
+	\item cable
+	\item DSL
+	\item corporate connection speeds (wszyscy mają jedno IP)
+\end{enumerate}
+	Miara jak dla kraju.
+
+\end{document}
