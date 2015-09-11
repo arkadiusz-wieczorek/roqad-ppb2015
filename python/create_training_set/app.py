@@ -14,12 +14,14 @@ add_user_id = imp.load_source('add_user_id_to_choosen_dataset', '../add_user_id_
 sample = samplecreator.getSample('../../roq-ad-data-set/learning-set/requests.csv', 0.02, 1)
 sample = add_user_id.addUserID(sample, '../../roq-ad-data-set/learning-set/labels.csv', 0)
 
+
+
 reader = reader.Reader()
 data = reader.readFromTable(sample)
 
 
 
-training_set_creator = create_training_set.Training_set_creator(data['names'], data['data'])
+training_set_creator = create_training_set.Training_set_creator(data)
 print training_set_creator.training_data
 print 'end'
 #print training_set_creator.data

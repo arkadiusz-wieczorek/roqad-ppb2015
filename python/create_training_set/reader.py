@@ -11,5 +11,4 @@ class Reader:
                 for j, attr in enumerate(attributes):
                     collection[names[j]] = attr
                 data.append(collection)
-        ret = {'names' : names, 'data' : data }
-        return ret
+        return data
