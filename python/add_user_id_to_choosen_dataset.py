@@ -2,10 +2,13 @@
 import fileinput
 import re
 
-def addUserID(dataset_file, dataset_file_with_userID):
-	dataset=open(dataset_file).readlines()
-	labels=open(dataset_file_with_userID).readlines()
+def addUserID(dataset_file, dataset_file_with_userID, mode):
+	if mode == 1:
+		dataset=open(dataset_file).readlines()
+	else:
+		dataset = dataset_file
 
+	labels=open(dataset_file_with_userID).readlines()
 	dataset_with_added_user_id = []
 
 	for row in dataset:
