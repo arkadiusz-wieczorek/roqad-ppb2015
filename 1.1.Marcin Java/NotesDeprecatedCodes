@@ -1,0 +1,78 @@
+Notes:
+
+/*	
+		Data data = new Data();
+
+		ReadCSV read = new ReadCSV(data,"devices.csv");
+
+		Dataset dataSet = new DefaultDataset();
+
+		for (int i = 0; i < data.data.size(); i++) {
+			System.out.println(data.get(i).toString());
+			dataSet.add(data.get(i));
+		}
+
+		FileHandler.exportDataset(dataSet, new File("output.txt"));
+
+		XMeans xm = new XMeans();
+		/* Wrap Weka clusterer in bridge */
+		//Clusterer jmlxm = new WekaClusterer(xm);
+		/* Perform clustering */
+		//Dataset[] clusters = jmlxm.cluster(dataSet);
+		
+		/*NumericToNominal filter = new NumericToNominal();
+		int[] tab = new int[10];
+		for (int i=0;i<10;i++) tab[i]=i;
+		filter.setAttributeIndicesArray(tab);
+		//filter.
+		
+		for(String s : filter.getOptions()){
+		System.out.println(s);
+		}*/
+		
+		//Instances inst = (Instances) dataSet;
+		//Filter.useFilter(inst, filter);
+		/*
+		try {
+			Writer writer = new BufferedWriter(new OutputStreamWriter(
+					new FileOutputStream("result.txt"), "utf-8"));
+			writer.write("Cluster count: " + clusters.length + "\n");
+			for (int i = 0; i < clusters.length; i++) {
+				writer.write("Cluster size: " + clusters[i].size() + "\n");	
+			}
+			for (int i = 0; i < clusters.length; i++) {
+				for (int j = 0; j < clusters[i].size(); j++) {
+					writer.write(clusters[i].get(j).toString()+ "\n");
+				}
+				writer.write(" " + "\n");
+			}
+			writer.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		Classifier knn = new KNearestNeighbors(15);
+		knn.buildClassifier(dataSet);
+		Data data2 = new Data();
+	    ReadCSV dataForClassification = new ReadCSV(data2, "devices2.csv");
+	    Dataset dataSet2 = new DefaultDataset();
+
+		for (int i = 0; i < data2.data.size(); i++) {
+			System.out.println(data2.get(i).toString());
+			dataSet2.add(data2.get(i));
+		}*/
+	     /* Counters for correct and wrong predictions. */
+	     /*int correct = 0, wrong = 0;*/
+	     /* Classify all instances and check with the correct class values */
+	     /*for (Instance inst : dataSet2) {
+	    	 System.out.println("ROBIE " + inst);
+	         Object predictedClassValue = knn.classify(inst);
+	         Object realClassValue = inst.classValue();
+	         if (predictedClassValue.equals(realClassValue))
+	             correct++;
+	         else
+	             wrong++;
+	     }
+	     
+	     System.out.println(correct + " " + wrong);
+		*/
