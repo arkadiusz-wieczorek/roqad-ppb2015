@@ -23,18 +23,18 @@ class TrainingSetToFile:
 
     def printDMatrixToFile(self, data, path):
         with open(path, 'w') as file:
+            names = data[0]
+            del data[0]
+            prediction = names.index('prediction')
             for record in data:
                 attrs = record.split(',')
-
-                # 0 zmapuj na attrs[prediction] 
-                # attrs.[prediction wytnij]
-
-
+                file.write(str(0) + ':' + str(self.values_maps[0].index_of(attrs[prediction])) + ',')
+                del attrs[prediction]
                 for i, attr in enumerate(attrs):
                     if self.isFloat(attr):
                         file.write(str(i + 1) + ':' + str(attr) + ',')
                     else:
-                        file.write(str(i + 1) + ':' + str(self.values_maps[i].index_of(attr)) + ',')
+                        file.write(str(i + 1) + ':' + str(self.values_maps[i+1].index_of(attr)) + ',')
                 file.write('\n')
 
     def isFloat(self,string):
