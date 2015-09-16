@@ -15,16 +15,18 @@ cartesian_product = imp.load_source('cartesian_product', '../cartesian_product.p
 sample = samplecreator.getSample('../../roq-ad-data-set/learning-set/requests.csv', 0.02, 1)
 sample = add_user_id.addUserID(sample, '../../roq-ad-data-set/learning-set/labels.csv', 0)
 
-cartesian_product.cartesianProduct(sample)
+sample = cartesian_product.cartesianProduct(sample)
+
 
 
 # reader = reader.Reader()
 # data = reader.readFromTable(sample)
 
+print 'jestem'
 
+training_set_creator = create_training_set.TrainingSetToFile()
+training_set_creator.printDMatrixToFile(sample,'DMatrixData.txt')
 
-training_set_creator = create_training_set.Training_set_creator(data)
-print training_set_creator.training_data
 print 'end'
 
 #print training_set_creator.data

@@ -19,6 +19,36 @@ class Mapper:
         self.number_to_value[index] = key
 
 
+class TrainingSetToFile:
+
+    def printDMatrixToFile(self, data, path):
+        with open(path, 'w') as file:
+            names = data[0]
+            del data[0]
+            prediction = names.index('prediction')
+            for record in data:
+                attrs = record.split(',')
+                file.write(str(0) + ':' + str(self.values_maps[0].index_of(attrs[prediction])) + ',')
+                del attrs[prediction]
+                for i, attr in enumerate(attrs):
+                    if self.isFloat(attr):
+                        file.write(str(i + 1) + ':' + str(attr) + ',')
+                    else:
+                        file.write(str(i + 1) + ':' + str(self.values_maps[i+1].index_of(attr)) + ',')
+                file.write('\n')
+
+    def isFloat(self,string):
+        try:
+            float(string)
+            return True
+        except ValueError:
+            return False
+
+    def __init__(self):
+        self.keys_map = Mapper()
+        self.values_maps = collections.defaultdict(Mapper)
+   
+
 class Training_set_creator:
 
     def maptovalue(self,collection):
@@ -49,6 +79,14 @@ class Training_set_creator:
             return True
         except ValueError:
             return False
+
+    def printDMatrixToFile(self, data, path):
+        with open(path, 'w') as file:
+            for record in data:
+                for attr in record:
+                    file.write(str(attr) + ':' + str(record[attr]) + ',')
+                file.write('\n')
+            file.flush()
 
     def __init__(self,data):
         self.keys_map = Mapper()
