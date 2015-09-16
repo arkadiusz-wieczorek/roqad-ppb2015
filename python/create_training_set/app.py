@@ -22,7 +22,7 @@ sample = cartesian_product.cartesianProduct(sample)
 # reader = reader.Reader()
 # data = reader.readFromTable(sample)
 
-
+print 'jestem'
 
 training_set_creator = create_training_set.TrainingSetToFile()
 training_set_creator.printDMatrixToFile(sample,'DMatrixData.txt')
