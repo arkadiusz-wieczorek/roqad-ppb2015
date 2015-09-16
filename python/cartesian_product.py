@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 import re
+from memory_profiler import profile
 
+@profile
 def cartesianProduct(sample):
 	x = ''.join(('__',sample[0]))
 
 	first_part_domain = sample[0].replace("\n", "")
 	second_part_domain = re.sub(r"\,([a-zA-Z])", ",__\\1", x)
+	second_part_domain = second_part_domain.replace("\n", "")
+	second_part_domain = second_part_domain.replace(" ", "")
 
 	cartesian_product_domain = ""
 	cartesian_product_domain = first_part_domain +','+ second_part_domain + ',' + 'the_same_user_id' + ',' + 'count_anonymous'
@@ -19,17 +23,17 @@ def cartesianProduct(sample):
 	index_of_anonymous_1 = index_of_anonymous_1[0]
 	index_of_second_anonymous_1 = index_of_second_anonymous_1[0]
 
-	index_i = 0
 
 	with open('cartesian_product.csv', "w") as file:
+		file.write(cartesian_product_domain + '\n')
 		for i in sample:
-			selected_user_id = i[0:i.find(',')]
-
-			index_j = 0
+			# selected_user_id = i[0:i.find(',')]
+			selected_user_id = i.split(',')[0]
 
 			for j in sample:
 
-				if selected_user_id == j[0:j.find(',')]:
+				# if selected_user_id == j[0:j.find(',')]:
+				if selected_user_id == j.split(',')[0]:
 					predict = '1'
 				else:
 					predict = '0'
@@ -49,18 +53,6 @@ def cartesianProduct(sample):
 				pass
 				row = row + "," + str(count_anonymous)
 				file.write(row+'\n')
-
-
-				index_j= index_j + 1
-				print (len(sample) * index_i + index_j)/(len(sample)*len(sample))
 			pass
-
-			index_i = index_i + 1
-				
 		pass
-
-	with open('cartesian_product.csv', 'r+') as file:
-		content = file.read()
-		file.seek(0, 0)
-		file.write(cartesian_product_domain + '\n' + content)
-print 'results saved in cartesian_product.csv'
+print 'results are saving in cartesian_product.csv'
