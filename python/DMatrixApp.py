@@ -29,13 +29,13 @@ class TrainingSetToFile:
                 headers = next(data, None)
                 prediction = headers.index('the_same_user_id')
                 for attrs in data:
-                    file.write(str(0) + ':' + str(self.values_maps[0].index_of(attrs[prediction])) + ',')
+                    file.write(str(0) + ':' + str(self.values_maps[0].index_of(attrs[prediction])) + ' ')
                     del attrs[prediction]
                     for i, attr in enumerate(attrs):
                         if self.isFloat(attr):
-                            file.write(str(i + 1) + ':' + str(attr) + ',')
+                            file.write(str(i + 1) + ':' + str(attr) + ' ')
                         else:
-                            file.write(str(i + 1) + ':' + str(self.values_maps[i+1].index_of(attr)) + ',')
+                            file.write(str(i + 1) + ':' + str(self.values_maps[i+1].index_of(attr)) + ' ')
                     file.write('\n')
 
     def isFloat(self,string):
