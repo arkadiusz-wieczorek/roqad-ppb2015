@@ -1,4 +1,3 @@
-
 public class Main {
 
 	/**
@@ -8,7 +7,9 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 
-		ReadRoqAttributes dataForClassification = new ReadRoqAttributes("requests.csv","devices.csv","labels.csv");
+		System.out.println(args[0] + "requests.csv");
+
+		ReadRoqAttributes dataForClassification = new ReadRoqAttributes(args[0] + "requests.csv", args[0] + "devices.csv",args[0] + "labels.csv");
 		
 		//ReadStraz dataForClassification = new ReadStraz("straz.csv");
 	}

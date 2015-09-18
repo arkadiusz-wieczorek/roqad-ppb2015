@@ -112,7 +112,7 @@ public class ReadRoqAttributes {
 			// / KONIEC DEFINICJI DANYCH
 
 			Writer writer = new BufferedWriter(new OutputStreamWriter(
-					new FileOutputStream("result.csv"), "utf-8"));
+					new FileOutputStream("../result.csv"), "utf-8"));
 			int[] licznik = new int[100];
 			for (int i = 0; i < 100; i++)
 				licznik[i] = 0;

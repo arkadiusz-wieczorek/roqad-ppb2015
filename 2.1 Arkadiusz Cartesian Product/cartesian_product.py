@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 import re
-from memory_profiler import profile
+#from memory_profiler import profile
 
-@profile
+#@profile
 def cartesianProduct(sample):
 	x = ''.join(('__',sample[0]))
 
@@ -24,7 +24,7 @@ def cartesianProduct(sample):
 	index_of_second_anonymous_1 = index_of_second_anonymous_1[0]
 
 
-	with open('cartesian_product.csv', "w") as file:
+	with open('result_cartesian.csv', "w") as file:
 		file.write(cartesian_product_domain + '\n')
 		for i in sample:
 			# selected_user_id = i[0:i.find(',')]

@@ -1,2 +1,3 @@
 roq-ad-data-set/*
 decision-tree/node_modules/*
+*.class
