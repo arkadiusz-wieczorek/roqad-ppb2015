@@ -1,13 +1,14 @@
 # wczytanie csv i wyjęcie URL deviców, które chcemy
 
-# te które chcemy wyjąć. Plik powinien mieć w pierwszej kolumnie numery deviceów, które chcemy poclustrować
-result <- read.csv("~/Documents/R projects/clustering/result.csv") 
+# te które chcemy wyjąć
+result <- read.csv("./Zeszyt2.csv") 
 
-# wszystkie device z URL ze zbioru uczącego. Jeżeli maj być z innego (test, alboco) należy wczytać inny plik. 
-#Jak maja być mieszane (np. learning + test) trzeba zmodyfikować kod.
-learning_url <- read.csv("~/Documents/R projects/clustering/learning.csv")
+# wszystkie device z URL ze zbioru uczącego
+learning_url <- read.csv("./learning_url.csv")
+
 
 balURLlist <- matrix(0, ncol = 2, nrow = nrow(result))
+
 
 for (i in 1:nrow(result)) {
   for (j in 1:nrow(learning_url)) {
@@ -35,11 +36,8 @@ naliste <- function(i) {
 
 distance <- function(i,j) {
   naliste(i)
-  
   naliste(j)
-  
   score <- length(intersect(naliste(i),naliste(j)))/min(length(naliste(i)),length(naliste(j)))
-  
   return(score)
 }
 
@@ -80,7 +78,7 @@ for(i in 1:nrow(clusters)) {
 
 
 for(i in 1:nrow(clusters)) {
-  for(j in 1:33) {
+  for(j in 1:floor(sqrt(nrow(URLmatrix)/2))) {
     if(clusters[i,1] %in% names(cl[[j]])) {
       clusters[i,2] <- j }
   }
