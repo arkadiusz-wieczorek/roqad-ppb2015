@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 import re
-#from memory_profiler import profile
+import url_dist as URLdist
 
-#@profile
+
 def cartesianProduct(sample):
+	once = 0
 	x = ''.join(('__',sample[0]))
 
 	first_part_domain = sample[0].replace("\n", "")
@@ -12,7 +13,7 @@ def cartesianProduct(sample):
 	second_part_domain = second_part_domain.replace(" ", "")
 
 	cartesian_product_domain = ""
-	cartesian_product_domain = first_part_domain +','+ second_part_domain + ',' + 'the_same_user_id' + ',' + 'count_anonymous'
+	cartesian_product_domain = first_part_domain +','+ second_part_domain + ',' + 'the_same_user_id' + ',' + 'count_anonymous' + ',' + 'url_dist' + ',' + 'unique_url_dist'
 
 	del sample[0]
 	i = cartesian_product_domain.split(',')
@@ -23,16 +24,18 @@ def cartesianProduct(sample):
 	index_of_anonymous_1 = index_of_anonymous_1[0]
 	index_of_second_anonymous_1 = index_of_second_anonymous_1[0]
 
+	URLdist.loadDataset('../1.3 Lukasz python/data/learning_url.csv')
+
 
 	with open('result_cartesian.csv', "w") as file:
 		file.write(cartesian_product_domain + '\n')
 		for i in sample:
-			# selected_user_id = i[0:i.find(',')]
+
 			selected_user_id = i.split(',')[0]
+
 
 			for j in sample:
 
-				# if selected_user_id == j[0:j.find(',')]:
 				if selected_user_id == j.split(',')[0]:
 					predict = '1'
 				else:
@@ -51,7 +54,13 @@ def cartesianProduct(sample):
 						count_anonymous = count_anonymous + 1
 					pass
 				pass
-				row = row + "," + str(count_anonymous)
+
+				devices = [s for s in list if 'dev_' in s]
+				url_dist = URLdist.dist(devices[0], devices[1])
+				unique_url_dist = URLdist.distunique(devices[0], devices[1])
+				
+				row = row + "," + str(count_anonymous) + "," + str(url_dist) + "," + str(unique_url_dist)
+
 				file.write(row+'\n')
 			pass
 		pass
