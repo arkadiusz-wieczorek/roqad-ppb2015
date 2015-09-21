@@ -1,3 +1,7 @@
 roq-ad-data-set/*
 decision-tree/node_modules/*
 *.class
+intermediate
+*.pyc
+*.py~
+result_cartesian.csv
