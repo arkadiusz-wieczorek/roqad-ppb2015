@@ -32,7 +32,7 @@ def dist(a,b):
 	l1 = lista[devlistnum(a)] 
 	l2 = lista[devlistnum(b)] 
 	x = len(inter(l1,l2))/float(min(len(l1),len(l2)))
-	return x
+	return 1-x
 
 def unique(l):
 	nowa=[]
@@ -45,7 +45,7 @@ def distunique(a,b):
 	l1 = unique(lista[devlistnum(a)]) 
 	l2 = unique(lista[devlistnum(b)]) 
 	x = len(inter(l1,l2))/float(min(len(l1),len(l2)))
-	return x
+	return 1-x
 
 # wywołuje się wpisując dev_id
 print dist('dev_100019','dev_100020')
