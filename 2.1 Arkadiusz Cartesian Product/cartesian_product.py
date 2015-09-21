@@ -3,7 +3,7 @@ import re
 import url_dist as URLdist
 
 
-def cartesianProduct(sample):
+def cartesianProduct(sample, device_url_path):
 	once = 0
 	x = ''.join(('__',sample[0]))
 
@@ -24,8 +24,9 @@ def cartesianProduct(sample):
 	index_of_anonymous_1 = index_of_anonymous_1[0]
 	index_of_second_anonymous_1 = index_of_second_anonymous_1[0]
 
-	URLdist.loadDataset('../1.3 Lukasz python/data/learning_url.csv')
+	URLdist.loadDataset(device_url_path)
 
+	count = 0;
 
 	with open('result_cartesian.csv', "w") as file:
 		file.write(cartesian_product_domain + '\n')
@@ -56,12 +57,16 @@ def cartesianProduct(sample):
 				pass
 
 				devices = [s for s in list if 'dev_' in s]
-				url_dist = URLdist.dist(devices[0], devices[1])
-				unique_url_dist = URLdist.distunique(devices[0], devices[1])
+				if((devices[0] is not None) & (devices[1] is not None)):
+					url_dist = URLdist.dist(devices[0], devices[1])
+
+					unique_url_dist = URLdist.distunique(devices[0], devices[1])
 				
-				row = row + "," + str(count_anonymous) + "," + str(url_dist) + "," + str(unique_url_dist)
+					row = row + "," + str(count_anonymous) + "," + str(url_dist) + "," + str(unique_url_dist)
 
 				file.write(row+'\n')
 			pass
+			count= count + 1
+			print count/float(len(sample)) * 100,  "%"
 		pass
 print 'results are saving in cartesian_product.csv'
