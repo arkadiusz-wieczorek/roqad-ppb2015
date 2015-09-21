@@ -1,7 +1,7 @@
 # wczytanie csv i wyjęcie URL deviców, które chcemy
 
 # te które chcemy wyjąć
-result <- read.csv("./Zeszyt2.csv") 
+result <- read.csv("./result.csv") 
 
 # wszystkie device z URL ze zbioru uczącego
 learning_url <- read.csv("./learning_url.csv")
