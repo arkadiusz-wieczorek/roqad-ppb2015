@@ -9,7 +9,11 @@ import random_sample_from_dataset as random
 random_sample = random.getSample('../Data/RownowazoneDaneZX.csv', 0.002, 1) #second parameter % from dataset
 dataset_with_id = add_id.addUserID(random_sample, '../roq-ad-data-set/learning-set/labels.csv', 0)
 
-# dataset_with_id = add_id.addUserID(sys.argv[1], '../roq-ad-data-set/learning-set/labels.csv', 1)
+
+print sys.argv
+
+dataset_with_id = add_id.addUserID(sys.argv[2], sys.argv[1] + 'labels.csv', 1)
+
 
 print "computing cartesian product..."
 cart_prod.cartesianProduct(dataset_with_id)

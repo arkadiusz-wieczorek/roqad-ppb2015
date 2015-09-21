@@ -24,7 +24,7 @@ public class ReadRoqAttributes {
 	private String fileDev;
 	private String fileLabels;
 	private String fileTimeZone;
-	private String fileClusters;
+	private String outputFile;
 	String cvsSplitBy = ",";
 	Random generator = new Random();
 	
@@ -34,13 +34,13 @@ public class ReadRoqAttributes {
 	Map<String,String> timeZones = new HashMap<String, String>();
 	Map<String,String> cllusters = new HashMap<String, String>();
 	
-	public ReadRoqAttributes(String fileReq, String fileDev, String fileLabels) {
+	public ReadRoqAttributes(String fileReq, String fileDev, String fileLabels, String fileTimeZone, String outputFile) {
 
 		this.fileReq = fileReq;
 		this.fileDev = fileDev;
 		this.fileLabels = fileLabels;
-		this.fileTimeZone = "time_zone.csv";
-		this.fileClusters = "clusters.csv";
+		this.fileTimeZone = fileTimeZone;
+		this.outputFile = outputFile;
 		this.run();
 
 	}
@@ -55,7 +55,8 @@ public class ReadRoqAttributes {
 	}
 
 	public void getTimeZones() throws IOException{
-		BufferedReader br = new BufferedReader(new FileReader(fileTimeZone));
+		System.out.println(this.fileTimeZone);
+		BufferedReader br = new BufferedReader(new FileReader(this.fileTimeZone));
 		
 		String line;
 		while ((line = br.readLine()) != null) {
@@ -66,20 +67,7 @@ public class ReadRoqAttributes {
 			System.out.println(dane[1] + " " + dane[0]);
 		}
 	}
-	
-	
-	public void getClusters() throws IOException{
-		BufferedReader br = new BufferedReader(new FileReader(fileClusters));
-		
-		String line;
-		while ((line = br.readLine()) != null) {
 
-			String[] dane = line.split(cvsSplitBy);
-			cllusters.put(dane[0],dane[1]);
-			
-			//System.out.println(dane[1] + " " + dane[0]);
-		}
-	}
 	
 	public void run() {
 		
@@ -152,10 +140,9 @@ public class ReadRoqAttributes {
 			// / KONIEC DEFINICJI DANYCH
 
 			getTimeZones(); // Read timeZones description
-			getClusters(); // REad URLclusters description
 			
 			Writer writer = new BufferedWriter(new OutputStreamWriter(
-					new FileOutputStream("result.csv"), "utf-8"));
+					new FileOutputStream(this.outputFile), "utf-8"));
 			int[] licznik = new int[100];
 			for (int i = 0; i < 100; i++)
 				licznik[i] = 0;
@@ -397,7 +384,7 @@ public class ReadRoqAttributes {
 				writer.write("ISP" + y + ",");
 			writer.write("PageMax,PageMed,");
 			writer.write("StartPageMax,StartPageMed,StartDays,");
-			writer.write("ConnDom,ConnDom2,ConnDiff,URL_Cluster \n");
+			writer.write("ConnDom,ConnDom2,ConnDiff \n");
 
 			List<String> lista = new LinkedList<String>(Attr1czas.keySet());
 			Collections.sort(lista);
