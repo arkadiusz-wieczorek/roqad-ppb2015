@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 import re
 import url_dist as URLdist
+import sys
 
 
-def cartesianProduct(sample, device_url_path):
+def cartesianProduct(sample, device_url_path, output_file):
 	once = 0
 	x = ''.join(('__',sample[0]))
 
@@ -28,7 +29,7 @@ def cartesianProduct(sample, device_url_path):
 
 	count = 0;
 
-	with open('result_cartesian.csv', "w") as file:
+	with open(output_file, "w") as file:
 		file.write(cartesian_product_domain + '\n')
 		for i in sample:
 
