@@ -17,7 +17,7 @@ def loadDataset(path):
 	pass
 
 def devlistnum( dev_id ):
-	for i in range(1,len(devices)-1):
+	for i in range(0,len(devices)):
 		if devices[i] == dev_id:
 			return i
 

@@ -50,11 +50,11 @@ devicesExtended = devicesAttributesHandler.addLinksToDevices(requestPerDevices, 
 
 #Produce new cvs file
 #devicesExtended
-fileOneName = 'devicesExtended' + strftime('%H%M%m%d%Y', gmtime()) + '.csv'
-fileTwoName = 'devicesXdevicesExtended' + strftime('%H%M%m%d%Y', gmtime()) + '.csv'
-cvsWriter.writeFile(fileOneName, devicesExtended, ["device_id"])
+#fileOneName = 'devicesExtended' + strftime('%H%M%m%d%Y', gmtime()) + '.csv'
+#fileTwoName = 'devicesXdevicesExtended' + strftime('%H%M%m%d%Y', gmtime()) + '.csv'
+cvsWriter.writeFile(sys.argv[3], devicesExtended, ["device_id"])
 #cvsWriter.writeFile(fileTwoName, devicesXdevicesExtended, ["device_id1", "device_id2"])
-cvsWriter.generateAndWriteToFile(fileTwoName, ["device_id1", "device_id2"])
+#cvsWriter.writeFile(sys.argv[3], ["device_id1", "device_id2"])
 
 #Invoke tree algorihtm
 #TBA

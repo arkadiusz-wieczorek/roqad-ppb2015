@@ -55,7 +55,6 @@ public class ReadRoqAttributes {
 	}
 
 	public void getTimeZones() throws IOException{
-		System.out.println(this.fileTimeZone);
 		BufferedReader br = new BufferedReader(new FileReader(this.fileTimeZone));
 		
 		String line;
@@ -64,7 +63,7 @@ public class ReadRoqAttributes {
 			String[] dane = line.split(cvsSplitBy);
 			timeZones.put(dane[1],dane[0]);
 			
-			System.out.println(dane[1] + " " + dane[0]);
+			//System.out.println(dane[1] + " " + dane[0]);
 		}
 	}
 
@@ -436,8 +435,7 @@ public class ReadRoqAttributes {
 				Collections.sort(Pp);
 				Collections.sort(startingPage);
 
-				// writer.write(s + ", ");
-				writer.write(datta.get(s));
+				writer.write(datta.get(s) + ", ");
 
 				String sBin = String.format("%24s",
 						Integer.toBinaryString(Attr1czas.get(s))).replace(' ',
@@ -458,10 +456,12 @@ public class ReadRoqAttributes {
 						+ "," + startingPage.size());
 				writer.write("," + Attr8connections[who][0] + ","
 						+ Attr8connections[who][1] + ","
-						+ Attr8connections[who][2]+",");				
+						+ Attr8connections[who][2]);
+				/*
 				if(cllusters.containsKey(s)) { 
 				writer.write(cllusters.get(s)); }
 				else writer.write(String.valueOf(generator.nextInt(30)+1));				
+				*/
 				writer.write("\n");
 				writer.flush();
 			}
