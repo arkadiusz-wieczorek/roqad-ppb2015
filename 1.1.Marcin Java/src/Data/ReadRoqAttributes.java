@@ -376,7 +376,7 @@ public class ReadRoqAttributes {
 			writer.write(datta.get("device_id") + ",");
 			for (int y = 0; y < 24; y++)
 				writer.write("Czas" + y + ",");
-			writer.write("CountryDom,CountryDom2,CountryDiff,");
+			writer.write("CountryDom,CountryDom2,CountryCount,");
 			for (int y = 0; y < 24; y++)
 				writer.write("IP" + y + ",");
 			for (int y = 0; y < 24; y++)
