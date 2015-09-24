@@ -258,7 +258,10 @@ def cartesianProduct(sample, device_url_path, output_file):
 					device2[column_name] = int(device2[column_name])
 				same_Conn_dom_1 = 0.5 if device1["ConnDom"]==device1["ConnDom"] else 0
 				same_Conn_dom_2 = 0.2 if device1["ConnDom2"]==device1["ConnDom2"] else 0
-				compare_Conn_counts = min([device1["ConnDiff"], device2["ConnDiff"]])/max([device1["ConnDiff"], device2["ConnDiff"]]) * 0.2
+				if(max([device1["ConnDiff"], device2["ConnDiff"]])==0):
+					compare_Conn_counts = 0
+				else:
+					compare_Conn_counts = min([device1["ConnDiff"], device2["ConnDiff"]])/max([device1["ConnDiff"], device2["ConnDiff"]]) * 0.2
 
 				connection_comp = same_Conn_dom_1 + same_Conn_dom_2 + compare_Conn_counts
 				row.append(connection_comp)
