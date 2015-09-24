@@ -94,6 +94,9 @@ def cartesianProduct(sample, device_url_path, output_file):
 
 				row.extend(device2_filtered_row)
 
+				if(device1["device_id"]==device2["device_id"]):
+					continue
+
 				#check if the 2 devices are for the same user ("the_same_user_id" column. 1 for true, 0 for false)
 
 				the_same_user_id = 1 if device1["user_id"]==device2["user_id"] else 0
