@@ -383,7 +383,7 @@ public class ReadRoqAttributes {
 				writer.write("ISP" + y + ",");
 			writer.write("PageMax,PageMed,");
 			writer.write("StartPageMax,StartPageMed,StartDays,");
-			writer.write("ConnDom,ConnDom2,ConnDiff \n");
+			writer.write("ConnDom,ConnDom2,ConnDiff\n");
 
 			List<String> lista = new LinkedList<String>(Attr1czas.keySet());
 			Collections.sort(lista);
