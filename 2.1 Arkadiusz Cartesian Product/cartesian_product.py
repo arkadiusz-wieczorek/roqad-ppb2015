@@ -46,7 +46,7 @@ def cartesianProduct(sample, device_url_path, output_file):
 	second_part_domain = second_part_domain.replace(" ", "")
 
 	cartesian_product_domain = ""
-	cartesian_product_domain = first_part_domain +','+ second_part_domain + ',' + 'the_same_user_id' + ',' + 'count_anonymous' + ',' + 'url_dist' + ',' + 'unique_url_dist,country_comp,same_browser_name,same_os_name,same_os_version,same_browser_version,same_device_name,same_device_category,comp_max_pages_per_hour,comp_med_pages_per_hour,comp_time,comp_dom_ips,comp_dom_providers,comp_max_start_pages_per_hour,comp_med_start_pages_per_hour,connection_comp'
+	cartesian_product_domain = first_part_domain +','+ second_part_domain + ',' + 'the_same_user_id' + ',' + 'count_anonymous' + ',' + 'url_dist' + ',' + 'unique_url_dist,country_comp,same_browser_name,same_os_name,same_os_version,same_browser_version,same_device_name,same_device_category,comp_max_pages_per_hour,comp_med_pages_per_hour,comp_time,comp_dom_ips,comp_dom_providers,connection_comp'
 
 	del sample[0]
 	i = cartesian_product_domain.split(',')
