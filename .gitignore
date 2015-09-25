@@ -5,3 +5,4 @@ intermediate
 *.pyc
 *.py~
 result_cartesian.csv
+DMatrixData.txt

@@ -1,6 +1,7 @@
 import collections
 import numbers
 import csv
+import re
 
 class Mapper:
     def __init__(self):
@@ -22,6 +23,23 @@ class Mapper:
 
 class TrainingSetToFile:
 
+    def printDMatrixTestToFile(self, data_path, dest_path):
+        with open(data_path, 'rb') as csvfile:
+            data = csv.reader(csvfile, quotechar='|')
+            with open(dest_path, 'w') as file:
+                headers = next(data, None)
+                prediction = headers.index('the_same_user_id')
+                for attrs in data:
+                    file.write('1' + ' ')
+                    del attrs[prediction]
+                    for i, attr in enumerate(attrs):
+                        if not attr == 'X':
+                            if self.isFloat(attr):
+                                file.write(str(i + 1) + ':' + str(attr).replace(" ", "") + ' ')
+                            else:
+                                file.write(str(i + 1) + ':' + str(self.values_maps[i+1].index_of(attr)) + ' ')
+                    file.write('\n')
+
     def printDMatrixToFile(self, data_path, dest_path):
         with open(data_path, 'rb') as csvfile:
             data = csv.reader(csvfile, quotechar='|')
@@ -29,14 +47,16 @@ class TrainingSetToFile:
                 headers = next(data, None)
                 prediction = headers.index('the_same_user_id')
                 for attrs in data:
-                    file.write(str(0) + ':' + str(self.values_maps[0].index_of(attrs[prediction])) + ' ')
+                    file.write(str(attrs[prediction]) + ' ')
                     del attrs[prediction]
                     for i, attr in enumerate(attrs):
-                        if self.isFloat(attr):
-                            file.write(str(i + 1) + ':' + str(attr) + ' ')
-                        else:
-                            file.write(str(i + 1) + ':' + str(self.values_maps[i+1].index_of(attr)) + ' ')
+                        if not attr == 'X':
+                            if self.isFloat(attr):
+                                file.write(str(i + 1) + ':' + str(attr).replace(" ", "")  + ' ')
+                            else:
+                                file.write(str(i + 1) + ':' + str(self.values_maps[i+1].index_of(attr)) + ' ')
                     file.write('\n')
+
 
     def isFloat(self,string):
         try:
@@ -48,8 +68,32 @@ class TrainingSetToFile:
     def __init__(self):
         self.keys_map = Mapper()
         self.values_maps = collections.defaultdict(Mapper)
+
+    def printResponses(self, data_path, dest_path):
+        with open(data_path, 'rb') as csvfile:
+            data = csv.reader(csvfile, quotechar='|')
+            with open(dest_path, 'w') as file:
+                headers = next(data, None)
+                prediction = headers.index('the_same_user_id')
+                for attrs in data:
+                    file.write(str(attrs[prediction]) + '\n')
+
    
 
 
 training_set_creator = TrainingSetToFile()
-training_set_creator.printDMatrixToFile('cartesian_product.csv','DMatrixData.txt')
+
+
+#uczacy
+training_set_creator.printDMatrixToFile('../intermediate/result_cartesian_learn.csv','../intermediate/DMatrixDataLearn.txt')
+
+#testowy
+training_set_creator.printDMatrixToFile('../intermediate/result_cartesian_test.csv','../intermediate/DMatrixDataTest.txt')
+
+#sprawdzajacy
+training_set_creator.printDMatrixTestToFile('../intermediate/result_cartesian_check.csv','../intermediate/DMatrixDataCheck.txt')
+training_set_creator.printResponses('../intermediate/result_cartesian_check.csv','../intermediate/resp.txt')
+
+
+
+

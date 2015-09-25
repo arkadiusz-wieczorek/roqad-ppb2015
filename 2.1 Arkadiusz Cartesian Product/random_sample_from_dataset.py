@@ -15,6 +15,7 @@ def getSample(dataset_file, percent_sample, mode):
 	samples = []
 	samples.append(dataset[0])
 
+	dataset = dataset[1:]
 	for x in range(number_of_samples):
 		sample = random.choice(dataset)
 		samples.append(sample)

@@ -1,6 +1,9 @@
 import csv
+import os
 
 def writeFile(fileName, data, columnSort):
+	if not os.path.exists(os.path.dirname(fileName)):
+		os.makedirs(os.path.dirname(fileName))
 	with open(fileName, 'w', newline="\n", encoding="utf-8") as csvfile:
 		print ('Zapisuje ', len(data))
 		if len(data) > 0:
@@ -12,4 +15,3 @@ def writeFile(fileName, data, columnSort):
 			writer.writeheader()
 			for key, value in sorted(data.items()):
 				writer.writerow(value)
-				
