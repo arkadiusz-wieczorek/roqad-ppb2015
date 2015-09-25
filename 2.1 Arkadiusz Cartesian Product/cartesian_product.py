@@ -3,6 +3,7 @@ import re
 import url_dist as URLdist
 import sys
 import itertools
+import random
 
 def filter_columns(values, original_columns, columns_to_remove):
 	new_list = []
@@ -96,10 +97,14 @@ def cartesianProduct(sample, device_url_path, output_file):
 
 				if(device1["device_id"]==device2["device_id"]):
 					continue
+				
+				if(device1["user_id"]!=device2["user_id"]):
+					if(random.random()<0.99):
+						continue
 
-				#check if the 2 devices are for the same user ("the_same_user_id" column. 1 for true, 0 for false)
+				#check if the 2 devices are for the same user ("the_same_user_id" column. "T" for true, "F" for false)
 
-				the_same_user_id = 1 if device1["user_id"]==device2["user_id"] else 0
+				the_same_user_id = "T" if device1["user_id"]==device2["user_id"] else "F"
 			
 				row.append(the_same_user_id)
 
@@ -133,35 +138,36 @@ def cartesianProduct(sample, device_url_path, output_file):
 				country_comp = same_country_dom_1 + same_country_dom_2 + compare_country_counts
 				row.append(country_comp)
 
-				#compare browser names ("same_browser_name" column. 1 for true, 0 for false)
-				same_browser_name = 1 if device1["browser_name"]==device2["browser_name"] else 0
+				#compare browser names ("same_browser_name" column. "T" for true, "F" for false)
+				same_browser_name = "T" if device1["browser_name"]==device2["browser_name"] else "F"
 				row.append(same_browser_name)
 
-				#compare os names ("same_os_name" column. 1 for true, 0 for false)
-				same_os_name = 1 if device1["os_name"]==device2["os_name"] else 0
+				#compare os names ("same_os_name" column. "T" for true, "F" for false)
+				same_os_name = "T" if device1["os_name"]==device2["os_name"] else "F"
 				row.append(same_os_name)
 
-				#compare os version ("same_os_version" 1 for true, 0 for false)
-				same_os_version = 0
+				#compare os version ("same_os_version" "T" for true, "F" for false)
+				same_os_version = "F"
 				if((device1["os_version"]!="") & (device2["os_version"]!="")):
 					if(device1["os_version"]==device2["os_version"]):
-						same_os_version = 1
+						same_os_version = "T"
+				#print device1["os_version"], ",", device2["os_version"], same_os_version
 				row.append(same_os_version)
 
-				#compare browser version ("same_browser_version" 1 for true, 0 for false)
-				same_browser_version = 0
+				#compare browser version ("same_browser_version" "T" for true, "F" for false)
+				same_browser_version = "F"
 				if((device1["browser_version"]!="") & (device2["browser_version"]!="")):
 					if(device1["browser_version"]==device2["browser_version"]):
-						same_browser_version = 1
+						same_browser_version = "T"
 				row.append(same_browser_version)
 
 
-				#compare device name ("same_device_name", 1 for true, 0 for false)
-				same_device_name = 1 if device1["device_name"]==device2["device_name"] else 0
+				#compare device name ("same_device_name", "T" for true, "F" for false)
+				same_device_name = "T" if device1["device_name"]==device2["device_name"] else "F"
 				row.append(same_device_name)
 
-				#compare category ("same_device_category", 1 for true, 0 for false)
-				same_device_category = 1 if device1["category"]==device2["category"] else 0
+				#compare category ("same_device_category", "T" for true, "F" for false)
+				same_device_category = "T" if device1["category"]==device2["category"] else "F"
 				row.append(same_device_category)
 
 				#compare max_pages_per_hour ("comp_max_pages_per_hour", 1 for very similar, 0 for very dissimilar)

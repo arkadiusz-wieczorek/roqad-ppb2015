@@ -151,6 +151,7 @@ public class ReadRoqAttributes {
 
 				String[] dane = line.split(cvsSplitBy);
 
+				/*				
 				if(!nonunique.containsKey(dane[0]))
 				{
 					nonunique.put(dane[0], dane[1]);
@@ -162,6 +163,8 @@ public class ReadRoqAttributes {
 					labels.put(dane[1],1);
 					labels.put(nonunique.get(dane[0]),1);
 				}
+				*/
+				labels.put(dane[1],1);
 				
 			}
 			
