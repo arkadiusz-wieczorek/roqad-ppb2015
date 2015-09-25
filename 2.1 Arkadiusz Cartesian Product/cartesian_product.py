@@ -134,11 +134,11 @@ def cartesianProduct(sample, device_url_path, output_file):
 				row.append(country_comp)
 
 				#compare browser names ("same_browser_name" column. 1 for true, 0 for false)
-				same_browser_name = 1 if device1["browser_name"]==device1["browser_name"] else 0
+				same_browser_name = 1 if device1["browser_name"]==device2["browser_name"] else 0
 				row.append(same_browser_name)
 
 				#compare os names ("same_os_name" column. 1 for true, 0 for false)
-				same_os_name = 1 if device1["os_name"]==device1["os_name"] else 0
+				same_os_name = 1 if device1["os_name"]==device2["os_name"] else 0
 				row.append(same_os_name)
 
 				#compare os version ("same_os_version" 1 for true, 0 for false)
