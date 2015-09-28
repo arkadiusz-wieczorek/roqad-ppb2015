@@ -47,7 +47,7 @@ def cartesianProduct(sample, device_url_path, output_file):
 	second_part_domain = second_part_domain.replace(" ", "")
 
 	cartesian_product_domain = ""
-	cartesian_product_domain = first_part_domain +','+ second_part_domain + ',' + 'the_same_user_id' + ',' + 'count_anonymous' + ',' + 'url_dist' + ',' + 'unique_url_dist,country_comp,same_browser_name,same_os_name,same_os_version,same_browser_version,same_device_name,same_device_category,comp_max_pages_per_hour,comp_med_pages_per_hour,comp_time,comp_dom_ips,comp_dom_providers,connection_comp'
+	cartesian_product_domain = first_part_domain +','+ second_part_domain + ',' + 'the_same_user_id' + ',' + 'count_anonymous' + ',' + 'url_dist' + ',' + 'unique_url_dist,country_comp,same_browser_name,same_os_name,same_os_version,same_browser_version,same_device_name,same_device_category,comp_max_pages_per_hour,comp_med_pages_per_hour,comp_time,comp_dom_ips,comp_dom_providers,connection_comp,same_cluster'
 
 	del sample[0]
 	i = cartesian_product_domain.split(',')
@@ -62,7 +62,7 @@ def cartesianProduct(sample, device_url_path, output_file):
 
 	count = 0;
 
-	columns_to_remove = ["(__)?anonymous.*", "(__)?user_id", "(__)?device_id", "(__)?Country.*", "(__)?browser_name", "(__)?os_name", "(__)?os_version", "(__)?browser_version", "(__)?device_name", "(__)?category", "(__)?PageMax", "(__)?PageMed", "(__)?Czas.*", "(__)?IP[0-9]+", "(__)?ISP[0-9]+", "(__)?Start.*", "(__)?Conn.*"]
+	columns_to_remove = ["(__)?anonymous.*", "(__)?user_id", "(__)?device_id", "(__)?Country.*", "(__)?browser_name", "(__)?os_name", "(__)?os_version", "(__)?browser_version", "(__)?device_name", "(__)?category", "(__)?PageMax", "(__)?PageMed", "(__)?Czas.*", "(__)?IP[0-9]+", "(__)?ISP[0-9]+", "(__)?Start.*", "(__)?Conn.*", "(__)?cluster.*"]
 	columns_to_remove = map(re.compile, columns_to_remove)
 
 	single_row_domain = first_part_domain.split(",")
@@ -99,7 +99,7 @@ def cartesianProduct(sample, device_url_path, output_file):
 					continue
 				
 				if(device1["user_id"]!=device2["user_id"]):
-					if(random.random()<0.99):
+					if(random.random()>0.000625):
 						continue
 
 				#check if the 2 devices are for the same user ("the_same_user_id" column. "T" for true, "F" for false)
@@ -274,6 +274,12 @@ def cartesianProduct(sample, device_url_path, output_file):
 
 				connection_comp = same_Conn_dom_1 + same_Conn_dom_2 + compare_Conn_counts
 				row.append(connection_comp)
+
+				#compare cluster id (same_cluster, 'F' for false, 'T' for true)
+				if(device1["cluster"]==device2["cluster"]):
+					row.append("T")
+				else:
+					row.append("F")
 
 				row = map(str, row)
 				file.write(",".join(row)+'\n')
