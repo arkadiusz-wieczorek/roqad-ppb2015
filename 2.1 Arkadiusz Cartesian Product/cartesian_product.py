@@ -47,7 +47,7 @@ def cartesianProduct(sample, device_url_path, output_file):
 	second_part_domain = second_part_domain.replace(" ", "")
 
 	cartesian_product_domain = ""
-	cartesian_product_domain = first_part_domain +','+ second_part_domain + ',' + 'the_same_user_id' + ',' + 'count_anonymous' + ',' + 'url_dist' + ',' + 'unique_url_dist,country_comp,same_browser_name,same_os_name,same_os_version,same_browser_version,same_device_name,same_device_category,comp_max_pages_per_hour,comp_med_pages_per_hour,comp_time,comp_dom_ips,comp_dom_providers,connection_comp'
+	cartesian_product_domain = first_part_domain +','+ second_part_domain + ',' + 'the_same_user_id' + ',' + 'count_anonymous' + ',' + 'url_dist' + ',' + 'unique_url_dist,country_comp,same_browser_name,same_os_name,same_os_version,same_browser_version,same_device_name,same_device_category,comp_max_pages_per_hour,comp_med_pages_per_hour,comp_time,comp_dom_ips,comp_dom_providers,connection_comp,same_cluster'
 
 	del sample[0]
 	i = cartesian_product_domain.split(',')
@@ -62,7 +62,7 @@ def cartesianProduct(sample, device_url_path, output_file):
 
 	count = 0;
 
-	columns_to_remove = ["(__)?anonymous.*", "(__)?user_id", "(__)?device_id", "(__)?Country.*", "(__)?browser_name", "(__)?os_name", "(__)?os_version", "(__)?browser_version", "(__)?device_name", "(__)?category", "(__)?PageMax", "(__)?PageMed", "(__)?Czas.*", "(__)?IP[0-9]+", "(__)?ISP[0-9]+", "(__)?Start.*", "(__)?Conn.*"]
+	columns_to_remove = ["(__)?anonymous.*", "(__)?user_id", "(__)?device_id", "(__)?Country.*", "(__)?browser_name", "(__)?os_name", "(__)?os_version", "(__)?browser_version", "(__)?device_name", "(__)?category", "(__)?PageMax", "(__)?PageMed", "(__)?Czas.*", "(__)?IP[0-9]+", "(__)?ISP[0-9]+", "(__)?Start.*", "(__)?Conn.*", "(__)?cluster.*"]
 	columns_to_remove = map(re.compile, columns_to_remove)
 
 	single_row_domain = first_part_domain.split(",")
@@ -74,12 +74,14 @@ def cartesianProduct(sample, device_url_path, output_file):
 	with open(output_file, "w") as file:
 		file.write(new_domain + '\n')
 		for i in sample:
+			print i
 
 			row = []
 
 			selected_user_id = i.split(',')[0]
 
-			device1_row = i[:-1].split(",")
+			#device1_row = i[:-1].split(",")
+			device1_row = i.split(",")
 			device1_filtered_row = filter_columns(device1_row, original_domain, columns_to_remove)
 			device1 = generate_map(single_row_domain, device1_row)
 
@@ -89,7 +91,8 @@ def cartesianProduct(sample, device_url_path, output_file):
 				row = []
 				row.extend(device1_filtered_row)
 
-				device2_row = j[:-1].split(",")
+				#device2_row = j[:-1].split(",")
+				device2_row = j.split(",")
 				device2_filtered_row = filter_columns(device2_row, original_domain, columns_to_remove)
 				device2 = generate_map(single_row_domain, device2_row)
 
@@ -99,8 +102,8 @@ def cartesianProduct(sample, device_url_path, output_file):
 					continue
 				
 				if(device1["user_id"]!=device2["user_id"]):
-					#0.000625 to ratio w danych
-					if(random.random()<0.000625):
+					#0.000625 to ratio ten_sam_user/inny_user w danych
+					if(random.random()>0.000625):
 						continue
 
 				#check if the 2 devices are for the same user ("the_same_user_id" column. "T" for true, "F" for false)
@@ -121,6 +124,13 @@ def cartesianProduct(sample, device_url_path, output_file):
 				row.append(count_anonymous)
 
 				#url_dist and unique_url_dist
+				
+				print "device1:"
+				print device1
+				print "device2:"
+				print device2
+				print "####"
+				print " "
 
 				url_dist = URLdist.dist(device1["device_id"], device2["device_id"]);
 				unique_url_dist = URLdist.distunique(device1["device_id"], device2["device_id"]);
@@ -275,6 +285,12 @@ def cartesianProduct(sample, device_url_path, output_file):
 
 				connection_comp = same_Conn_dom_1 + same_Conn_dom_2 + compare_Conn_counts
 				row.append(connection_comp)
+
+				#compare cluster id (same_cluster, 'F' for false, 'T' for true)
+				if(device1["cluster"]==device2["cluster"]):
+					row.append("T")
+				else:
+					row.append("F")
 
 				row = map(str, row)
 				file.write(",".join(row)+'\n')

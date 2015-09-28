@@ -14,12 +14,16 @@ def addUserID(dataset_file, dataset_file_with_userID, mode):
 	for row in dataset:
 		current_device_id = row[0:row.find(',')]
 
+		added = False
 		for label in labels:
 
 			if current_device_id in label:
 				find_user_id = label[0:label.find(',')]
 
 				dataset_with_added_user_id.append(find_user_id +','+row)
+				added = True
+		if(not(added)):
+			print "NOt ADDED!"
 
 	return dataset_with_added_user_id
 

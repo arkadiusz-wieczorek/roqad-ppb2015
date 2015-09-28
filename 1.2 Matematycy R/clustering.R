@@ -1,14 +1,22 @@
+print(commandArgs(TRUE))
+
 # wczytanie csv i wyjęcie URL deviców, które chcemy
 
-# te które chcemy wyjąć
-result <- read.csv("./result.csv") 
+# te które chcemy wyjąć - pierwsza kolumna to muszą być ID device'ów (learning set)
+result <- read.csv(commandArgs(TRUE)[1]) 
+result["cluster"] <- NA
 
-# wszystkie device z URL ze zbioru uczącego
-learning_url <- read.csv("./learning_url.csv")
+print("nrow(result)")
+print(nrow(result))
+
+# wszystkie device z URL ze zbioru uczącego pierwsza kolumna to device_id, a druga to lista urli
+learning_url <- read.csv(commandArgs(TRUE)[2])
 
 
 balURLlist <- matrix(0, ncol = 2, nrow = nrow(result))
 
+
+print("clustering - step 1/3...")
 
 for (i in 1:nrow(result)) {
   for (j in 1:nrow(learning_url)) {
@@ -18,9 +26,12 @@ for (i in 1:nrow(result)) {
       break
     }
   }
-  print(i)
+  print(i/nrow(result)*100)
   flush.console()
 }
+
+print("nrow(result)")
+print(nrow(result))
 
 URLmatrix <- balURLlist
 
@@ -49,7 +60,6 @@ custom.dist <- function(n, my.function) {
     for(j in 1:ncol(mat)) {
       mat[i,j] <- 1 - my.function(i,j)
     }
-    print(i)
     flush.console()}
   return(mat)
 }
@@ -70,20 +80,41 @@ cl
 
 # device-cluster indentification list
 
-clusters <- matrix(0, nrow =nrow(URLmatrix) , ncol = 2)
+clusters <- matrix(0, nrow=nrow(result) , ncol=2)
+print("nrow(result)")
+print(nrow(result))
+print("nrow(clusters)")
+print(nrow(clusters))
+
+print("Clustering - step 2/3...")
 
 for(i in 1:nrow(clusters)) {
   clusters[i,1] <- colnames(dis)[i]
+  #print(i/nrow(clusters)*100)
 }
 
+print("Clustering - step 3/3...")
 
 for(i in 1:nrow(clusters)) {
   for(j in 1:floor(sqrt(nrow(URLmatrix)/2))) {
     if(clusters[i,1] %in% names(cl[[j]])) {
       clusters[i,2] <- j }
   }
+#  print(i/nrow(clusters)*100)
 }
+
+#for(i in 1:nrow(result)){
+#	device_id <- result[i][1]
+#	for(j in 1:nrow(cl)){
+#		
+#	}
+#}
+
+
+result$cluster = clusters[,2]
+
+print(clusters)
 
 # export to csv device-cluster indentification list
 
-write.table(clusters, file = "clusters.csv", sep = " , ", row.names = FALSE, col.names = FALSE)
+write.table(result, file = commandArgs(TRUE)[3], sep = ",", row.names = FALSE, col.names = TRUE)
