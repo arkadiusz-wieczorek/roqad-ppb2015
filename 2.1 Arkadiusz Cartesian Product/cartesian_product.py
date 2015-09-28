@@ -74,7 +74,6 @@ def cartesianProduct(sample, device_url_path, output_file):
 	with open(output_file, "w") as file:
 		file.write(new_domain + '\n')
 		for i in sample:
-			print i
 
 			row = []
 
@@ -125,13 +124,6 @@ def cartesianProduct(sample, device_url_path, output_file):
 
 				#url_dist and unique_url_dist
 				
-				print "device1:"
-				print device1
-				print "device2:"
-				print device2
-				print "####"
-				print " "
-
 				url_dist = URLdist.dist(device1["device_id"], device2["device_id"]);
 				unique_url_dist = URLdist.distunique(device1["device_id"], device2["device_id"]);
 				row.extend([url_dist, unique_url_dist]);
