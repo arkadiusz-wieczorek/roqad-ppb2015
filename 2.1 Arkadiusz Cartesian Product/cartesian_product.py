@@ -100,10 +100,10 @@ def cartesianProduct(sample, device_url_path, output_file):
 				if(device1["device_id"]==device2["device_id"]):
 					continue
 				
-				if(device1["user_id"]!=device2["user_id"]):
+				#if(device1["user_id"]!=device2["user_id"]):
 					#0.000625 to ratio ten_sam_user/inny_user w danych
-					if(random.random()>0.000625):
-						continue
+					#if(random.random()>0.000625):
+						#continue
 
 				#check if the 2 devices are for the same user ("the_same_user_id" column. "T" for true, "F" for false)
 

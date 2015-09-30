@@ -150,8 +150,8 @@ public class ReadRoqAttributes {
 			while ((line = br3.readLine()) != null) {
 
 				String[] dane = line.split(cvsSplitBy);
-
-				/*				
+				
+				/*
 				if(!nonunique.containsKey(dane[0]))
 				{
 					nonunique.put(dane[0], dane[1]);

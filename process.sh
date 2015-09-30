@@ -9,11 +9,18 @@ javac Main.java && java Main ../../../roq-ad-data-set/learning-set/  ../../../in
 
 cd ../../../intermediate
 
-#cat balanced.csv | head -n 100 > balanced_trimmed.csv
+#cat balanced.csv | head -n 20 > balanced_trimmed.csv
 #mv balanced_trimmed.csv balanced.csv
+#head -n 1 balanced.csv > temp.txt
+#head -n -1 balanced.csv > balanced_headless.csv
+#perl -ne 'print if(rand() < .1)' balanced_headless.csv >> temp.txt
+#mv temp.txt balanced.csv
 
+#trim last, useless line
 head -n -1 balanced.csv > balanced.temp.csv &&
 mv balanced.temp.csv balanced.csv
+
+#remove \" chars
 sed -i 's/\"//g' balanced.csv
 
 cd ../1.3\ Lukasz\ python/ && 
