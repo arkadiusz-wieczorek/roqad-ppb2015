@@ -1,0 +1,15 @@
+network : 
+Computing F1
+0.734401575508
+predictionGradiendBoostingMachine : 
+Computing F1
+0.787715240298
+predictionNaiveBayes : 
+Computing F1
+0.703414634146
+results : 
+Computing F1
+0.709356725146
+resultsDeepLearning : 
+Computing F1
+0.77669817154
