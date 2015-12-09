@@ -17,8 +17,8 @@ cd ../../../intermediate-ver
 #mv temp.txt balanced.csv
 
 #trim last, useless line
-head -n -1 balanced.csv > balanced.temp.csv &&
-mv balanced.temp.csv balanced.csv
+# head -n -1 balanced.csv > balanced.temp.csv &&
+# mv balanced.temp.csv balanced.csv
 
 #remove \" chars
 sed -i 's/\"//g' balanced.csv

@@ -30,8 +30,8 @@ def inter(a,b):
 
 # ogleglosc miedzy urlami (z powtorzeniami)
 def dist(a,b):
-	print a, b
-	print devlistnum(a), devlistnum(b)
+	# print a, b
+	# print devlistnum(a), devlistnum(b)
 	l1 = lista[devlistnum(a)] 
 	l2 = lista[devlistnum(b)] 
 	x = len(inter(l1,l2))/float(min(len(l1),len(l2)))

@@ -28,7 +28,7 @@ public class ReadRoqAttributes {
 	String cvsSplitBy = ",";
 	Random generator = new Random();
 	
-	private static final int deviceCount = 4000;
+	private static final int deviceCount = 7389;
 	
 	public static final boolean  addrandom = false;
 	Map<String,String> timeZones = new HashMap<String, String>();
@@ -150,6 +150,10 @@ public class ReadRoqAttributes {
 			while ((line = br3.readLine()) != null) {
 
 				String[] dane = line.split(cvsSplitBy);
+
+				// System.out.println(dane[0]);
+				// System.out.println(dane[1]);
+				// System.out.println("---");
 				
 				/*
 				if(!nonunique.containsKey(dane[0]))
@@ -186,7 +190,7 @@ public class ReadRoqAttributes {
 				// use comma as separator
 				String[] dane = line.split(cvsSplitBy);
 
-				if (row >= 1 && labels.containsKey(dane[0])) {
+				if (row >= 1 /*&& labels.containsKey(dane[0])*/) {
 					// System.out.println(dane[7]);
 
 					
@@ -312,11 +316,14 @@ public class ReadRoqAttributes {
 						int ile = requestsCount.get(dane[0]);
 						requestsCount.put(dane[0], ile + 1);
 					}
+				}else{
+					System.out.println("Did not find " + dane[0]);
 				}
 
 				row++;
 			}
 			System.out.print("KONIEC\n");
+			System.out.print("Processed rows:" +  (row-1));
 
 			// countryMAX,secondMAX,diff
 
